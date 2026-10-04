@@ -1,123 +1,76 @@
-# Cosmetics Sales Analysis
+# Northwind Sales Analysis — SQL Project
 
-## Project Overview
-This project focuses on cosmetics and skincare product sales data from 2022. The analysis focuses on product sales performance and salesperson performance. SQL was used to analyze key metrics such as total sales and the products with the highest revenue. The analysis also helped identify interesting patterns and draw business insights from the data.
+## Project Goal
 
+In this project, I focused on analyzing Northwind sales data using SQL. The analysis covers sales over time, product and category performance, customer activity, and employees responsible for handling orders.
 
-## Dataset
-This dataset contains skincare product sales data from 2022. It includes information about salespeople, countries, products, sale dates, sales amounts, and boxes shipped.
+My main goal was to use basic SQL queries to obtain information about sales, customer activity, and employee activity.
 
-Source: Kaggle
+## About the Dataset
 
+The analysis was conducted using the Northwind database, which contains information about orders, customers, products, product categories, and employees.
 
-## Tools & Technologies
-- SQL
+The data used in this project covers the period from July 4, 2013, to May 6, 2015. The database contains:
+
+- 830 orders
+- 91 customers
+- 77 products
+- 8 product categories
+- 9 employees
+
+2014 is the only full year included in the dataset. Therefore, the results for individual years and months should be interpreted with consideration of the incomplete data for 2013 and 2015.
+
+## SQL Skills Used
+
+I used SQL clauses such as `GROUP BY`, `HAVING`, `ORDER BY`, and `LIMIT`. I also used both `INNER JOIN` and `LEFT JOIN`.
+
+The project also includes aggregate functions such as `SUM()`, `COUNT()`, `AVG()`, `MIN()`, and `MAX()`.
+
+## Tools
+
+- MySQL
 - MySQL Workbench
-- Google Sheets
 
+## Scope of Analysis
 
-## Business Questions
-1. What is the total sales value?
-2. Which product generated the highest revenue?
-3. Which products were sold most frequently?
-4. Which salesperson generated the highest revenue?
-5. Which months had the highest sales?
-6. Which salesperson had the highest average transaction value?
+The analysis covers several business areas: sales over time, products and product categories, customers, and employees.
 
+I checked how many units were sold each year, which products were the best-selling, which products had the highest unit prices, and how sales were distributed across product categories.
 
-## SQL Analysis
-### 1. Total Sales
-
-The total sales amounted to $2,909,104.12.
-
-```sql
-SELECT 
-    ROUND(SUM(amount), 2) AS total_sales 
-FROM sales;
-```
-
-### 2. Product Revenue
-
-Tea Tree Moisturizer generated the highest revenue at $260,905.44.
-
-```sql
-SELECT 
-product, 
-ROUND(SUM(amount), 2) AS revenue 
-FROM sales 
-GROUP BY product 
-ORDER BY revenue DESC;
-``` 
-
-### 3. Sales Volume by Product
-
-Hydrating Face Serum was the most frequently sold product, appearing in 31 transactions. Tea Tree Moisturizer and Hair Repair Oil followed with 30 transactions each.
-
-```sql
-SELECT 
-product, 
-COUNT(product) AS transaction_count 
-FROM sales 
-GROUP BY product
-ORDER BY transaction_count DESC;
-```
-
-### 4. Salesperson Revenue
-
-Olivia D'Souza generated the highest revenue at $387,405.91. She also recorded 47 transactions.
-
-```sql
-SELECT 
-sales_person, ROUND(SUM(amount), 2) AS revenue 
-FROM sales 
-GROUP BY sales_person 
-ORDER BY revenue DESC;
-```
-
-### 5. Monthly Revenue
-
-March was the strongest sales month, generating $484,101.59 in revenue. A separate transaction count analysis showed 58 transactions in March.
-
-```sql
-SELECT
-MONTH(sale_date) AS month, 
-ROUND(SUM(amount), 2) AS revenue 
-FROM sales 
-GROUP BY MONTH(sale_date) 
-ORDER BY revenue DESC;
-```
-
-### 6. Average Transaction Value by Salesperson
-Ava Sharma had the highest average transaction value at $8,791.94. Despite this, she generated $246,174.28 in total sales and had the fewest transactions, with 28.
-
-```sql
-SELECT
-    sales_person,
-    ROUND(SUM(amount), 2) AS total_revenue,
-    COUNT(amount) AS number_of_transactions,
-    ROUND(AVG(amount), 2) AS average_transaction_value
-FROM sales
-GROUP BY sales_person
-ORDER BY average_transaction_value DESC;
-```
+In the customer analysis, I focused on the number of orders and the number of units purchased. For employees, I compared the number of orders handled and the number of units sold.
 
 ## Key Findings
-1. **Total sales:** Total sales amounted to $2,909,104.12.
-2. **Top revenue product:** Tea Tree Moisturizer generated the highest revenue at $260,905.44. It also ranked second in the number of transactions.
-3. **Best-selling products:** The three most frequently sold products were:
-- **Hydrating Face Serum** — 31 transactions; it also generated the second-highest revenue.
-- **Tea Tree Moisturizer** — 30 transactions and the highest number of boxes shipped (8,319).
-- **Hair Repair Oil** — 30 transactions; it had the largest single transaction, worth $23,977.48.
-4. **Top-performing salesperson:** Olivia D'Souza was the top-performing salesperson, generating $387,405.91 across 47 transactions. She also had the highest number of transactions among all salespeople.
-5. **Strongest sales month:** March was the strongest sales month, recording the highest revenue ($484,101.59) and the highest number of transactions (58).
-6. **High transaction value vs. sales volume:** Ava Sharma had the highest average transaction value ($8,791.94), despite generating only $246.2K in total sales and having the fewest transactions (28). This suggests that her lower total sales were driven by a lower transaction volume rather than a low transaction value.
 
+### 1. Dairy Products had high unit sales
 
-## Business Insights
-1. **Overall sales:** The total sales value provides a baseline for evaluating future business performance and comparing sales results over time.
-2. **Tea Tree Moisturizer:** Tea Tree Moisturizer was the highest-revenue product and one of the most frequently sold products. The product has strong sales performance, so it may be worth further investing in its development and promotion. Customer feedback could also be analyzed to identify opportunities to improve the product, such as packaging or other product features.
-3. **Top-selling products:** Hydrating Face Serum, Tea Tree Moisturizer, and Hair Repair Oil were the three most frequently sold products, with relatively similar sales volumes. These products could be highlighted in future marketing campaigns and promotional activities.
-4. **Salesperson performance:** Olivia D'Souza generated both the highest revenue and the highest number of transactions. This suggests that her strong performance was not based only on selling high-value products, but also on her ability to generate a high number of sales. Her sales approach could be analyzed to identify practices that could be shared with other salespeople.
-5. **March sales:** March was the strongest sales month, with the highest revenue and number of transactions. One possible explanation could be increased customer interest in skincare and self-care at the beginning of the year. However, this would require further analysis of seasonal trends and customer behavior to confirm.
-6. **Ava Sharma:** Ava Sharma had the highest average transaction value despite having the lowest number of transactions. This suggests that her individual transactions were relatively high in value, potentially because customers purchased higher-value products or larger quantities. Further analysis could identify which products or sales patterns contributed to her high average transaction value.
+The highest number of units was sold in the Beverages category — 9,532, followed by Dairy Products — 9,149. Also, the three best-selling products in the entire dataset — Camembert Pierrot, Raclette Courdavault, and Gorgonzola Telino — belong to the Dairy Products category.
 
+### 2. A higher number of products does not automatically mean higher unit sales
+
+Dairy Products had a smaller product range than Confections — 10 products instead of 13 — but 1,243 more units were sold in this category.
+
+### 3. A high unit price does not automatically mean low unit sales
+
+Raclette Courdavault is the 6th most expensive product and also the 2nd best-selling product in terms of the number of units sold. This shows that a high unit price does not necessarily mean low unit sales. However, the analysis does not allow us to determine the impact of price on sales.
+
+### 4. A significant share of unit sales is concentrated among a few customers
+
+Jose Pavarotti, Roland Mendel, and Horst Kloss rank in the top three both in terms of the number of orders and units purchased. Together, they purchased 13,462 out of 51,317 units, which represents approximately 26.2% of total unit sales. Out of 91 customers, two did not place any orders.
+
+This result could be a starting point for further analysis of the differences between the most active customers and the remaining customers.
+
+### 5. A large share of order handling is concentrated among three employees
+
+Margaret Peacock, Janet Leverling, and Nancy Davolio handled 406 out of 830 orders, which represents approximately 48.9%. A total of 25,462 out of 51,317 units were sold in the orders they handled — approximately 49.6%.
+
+Margaret Peacock ranks first in both metrics, with 156 orders handled and 9,798 units sold.
+
+This result could be a starting point for further analysis of the differences between orders handled by individual employees.
+
+## Limitations of the Analysis
+
+- **Incomplete data for 2013 and 2015** — 2014 is the only full year in the dataset. This makes it difficult to directly compare annual results and assess sales seasonality.
+
+- **No analysis of sales value** — the analysis focuses mainly on the number of units sold and the number of orders, rather than sales value.
+
+- **Basic scope of analysis** — the project does not include an analysis of more complex relationships, such as the impact of product price on sales.
